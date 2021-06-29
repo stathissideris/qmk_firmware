@@ -44,6 +44,10 @@ enum preonic_keycodes {
   WMOVE_DOWN,
   WMOVE_LEFT,
   WMOVE_RIGHT,
+  WMAX,
+  WHOR,
+  WVER,
+  WCLO,
   ARROW,
   DARROW
 };
@@ -117,21 +121,21 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,-----------------------------------------------------------------------------------.
  * |   ~  |   !  |   @  |   #  |   $  |   %  |   ^  |   &  |   *  |   -  |   =  | Bksp |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
- * |   ~  |   !  |   @  |   #  |   $  |   %  |   ^  |   &  |   *  |   _  |   +  | Del  |
+ * |  ->  |   !  |clstab|   #  |   $  |newtab|   ^  |   &  |   *  |   _  |   +  | ->>  |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
- * | Del  |  F1  |  F2  |  F3  |  F4  |  F5  |  F6  |   _  |   +  |   {  |   }  |      |
+ * |      |  F1  |  F2  |  F3  |  F4  |  F5  |  F6  |   _  |   +  |   {  |   }  |      |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
- * |      |  F7  |  F8  |  F9  |  F10 |  F11 |  F12 |ISO ~ |ISO | | Home | End  |      |
+ * |      |  F7  |  F8  |  F9  |  F10 |  F11 |  F12 |ISO ~ |ISO | |prvtab|nxttab|      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |      |      |      |      |      |             |      | Next | Vol- | Vol+ | Play |
  * `-----------------------------------------------------------------------------------'
  */
 [_LOWER] = LAYOUT_preonic_grid(
-  KC_TILD, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, KC_CIRC, KC_AMPR, KC_ASTR, KC_MINS, KC_EQL,  KC_BSPC,
-  ARROW,   _______, _______, _______, _______, _______, _______, _______, _______, KC_UNDS, KC_PLUS, DARROW,
-  _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_LCBR, KC_RCBR, _______,
-  _______, _______, _______, _______, _______, _______, _______, _______, _______, LCTL(KC_PGUP), LCTL(KC_PGDN),  _______,
-  _______, _______, _______, _______, _______, _______, _______, _______, KC_MNXT, KC_VOLD, KC_VOLU, KC_MPLY
+  KC_TILD, KC_EXLM, KC_AT,      KC_HASH, KC_DLR,  KC_PERC,    KC_CIRC, KC_AMPR, KC_ASTR, KC_MINS,       KC_EQL,  KC_BSPC,
+  ARROW,   _______, LGUI(KC_W), _______, KC_MINS, LGUI(KC_T), _______, _______, _______, KC_UNDS,       KC_PLUS, DARROW,
+  _______, _______, _______,    _______, _______, _______,    _______, _______, _______, KC_LCBR,       KC_RCBR, _______,
+  _______, _______, _______,    _______, _______, _______,    _______, _______, _______, LCTL(KC_PGUP), LCTL(KC_PGDN),  _______,
+  _______, _______, _______,    _______, _______, _______,    _______, _______, KC_MNXT, KC_VOLD,       KC_VOLU, KC_MPLY
 ),
 
 /* Raise
@@ -177,7 +181,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 
 [_ASCEND] = LAYOUT_preonic_grid(
-  _______, _______,    _______,    _______,     _______,  _______, _______, _______, _______, _______, _______, _______,
+  _______, WMAX,       WHOR,       WVER,        _______,  _______, _______, _______, _______, _______, WCLO,    _______,
   _______, _______,    WMOVE_UP,   _______,     _______,  _______, _______, _______, _______, _______, _______, _______,
   _______, WMOVE_LEFT, WMOVE_DOWN, WMOVE_RIGHT, _______,  _______, _______, _______, _______, _______, _______, _______,
   _______, _______,    _______,    LGUI(KC_EQL), _______, _______, _______, _______, _______, _______, KC_UP,   _______,
@@ -201,20 +205,52 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       return false;
       break;
+   case WMAX:
+      if (record->event.pressed) {
+         SEND_STRING(SS_LCTL("x") SS_TAP(X_1));
+      }
+      return false;
+      break;
+   case WHOR:
+      if (record->event.pressed) {
+         SEND_STRING(SS_LCTL("x") SS_TAP(X_2));
+      }
+      return false;
+      break;
+   case WVER:
+      if (record->event.pressed) {
+         SEND_STRING(SS_LCTL("x") SS_TAP(X_3));
+      }
+      return false;
+      break;
+   case WCLO:
+      if (record->event.pressed) {
+         SEND_STRING(SS_LCTL("x") SS_TAP(X_0));
+      }
+      return false;
+      break;
    case WMOVE_UP:
-      SEND_STRING(SS_LCTL("x") SS_TAP(X_UP));
+      if (record->event.pressed) {
+         SEND_STRING(SS_LCTL("x") SS_TAP(X_UP));
+      }
       return false;
       break;
    case WMOVE_DOWN:
-      SEND_STRING(SS_LCTL("x") SS_TAP(X_DOWN));
+      if (record->event.pressed) {
+         SEND_STRING(SS_LCTL("x") SS_TAP(X_DOWN));
+      }
       return false;
       break;
    case WMOVE_LEFT:
-      SEND_STRING(SS_LCTL("x") SS_TAP(X_LEFT));
+      if (record->event.pressed) {
+         SEND_STRING(SS_LCTL("x") SS_TAP(X_LEFT));
+      }
       return false;
       break;
    case WMOVE_RIGHT:
-      SEND_STRING(SS_LCTL("x") SS_TAP(X_RIGHT));
+      if (record->event.pressed) {
+         SEND_STRING(SS_LCTL("x") SS_TAP(X_RIGHT));
+      }
       return false;
       break;
    case QWERTY:
