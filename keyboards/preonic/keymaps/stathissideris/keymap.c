@@ -51,7 +51,9 @@ enum preonic_keycodes {
   WBAL,
   ARROW,
   DARROW,
-  MAGIT
+  MAGIT,
+  CLOCK_IN,
+  CLOCK_OUT
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -134,8 +136,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [_LOWER] = LAYOUT_preonic_grid(
   KC_TILD, KC_EXLM, KC_AT,      KC_HASH, KC_DLR,  KC_PERC,    KC_CIRC, KC_AMPR, KC_ASTR, KC_MINS,       KC_EQL,  KC_BSPC,
-  ARROW,   _______, LGUI(KC_W), _______, KC_MINS, LGUI(KC_T), _______, _______, _______, KC_UNDS,       KC_PLUS, DARROW,
-  _______, _______, _______,    _______, _______, MAGIT,      _______, _______, _______, KC_LCBR,       KC_RCBR, _______,
+  ARROW,   _______, LGUI(KC_W), _______, KC_MINS, LGUI(KC_T), _______, _______, KC_PIPE, KC_UNDS,       KC_PLUS, DARROW,
+  _______, _______, _______,    _______, _______, MAGIT,      _______, _______, _______, _______,       _______, _______,
   _______, _______, _______,    _______, _______, _______,    _______, _______, _______, LCTL(KC_PGUP), LCTL(KC_PGDN),  _______,
   _______, _______, _______,    _______, _______, _______,    _______, _______, KC_MNXT, KC_VOLD,       KC_VOLU, KC_MPLY
 ),
@@ -157,7 +159,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,          KC_HASH, KC_LPRN, KC_RPRN, KC_BSPC,
   ARROW,   _______, _______, _______, _______, _______, _______, _______,       KC_PIPE, KC_LBRC, KC_RBRC, DARROW,
   _______, _______, _______, _______, _______, _______, _______, _______,       KC_BSLS, KC_LCBR, KC_RCBR, _______,
-  _______, _______, _______, _______, _______, _______, _______, LGUI(KC_SLSH), _______, _______, LGUI(KC_SLSH), _______,
+  _______, _______, _______, _______, _______, _______, _______, LGUI(KC_SLSH), _______, _______, KC_BSLS, _______,
   _______, _______, _______, _______, _______, _______, _______, _______,       KC_MNXT, KC_VOLD, KC_VOLU, KC_MPLY
 ),
 
@@ -183,10 +185,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 
 [_ASCEND] = LAYOUT_preonic_grid(
-  _______, WMAX,    WHOR,       WVER,         _______, _______, _______, _______, _______, LGUI(KC_LPRN), WCLO,    _______,
-  _______, _______, LGUI(KC_W), _______,      _______, _______, _______, _______, _______, _______,       WBAL,    _______,
-  _______, _______, _______,    _______,      _______, _______, _______, _______, _______, _______,       _______, _______,
-  _______, _______, _______,    LGUI(KC_EQL), _______, _______, _______, _______, _______, _______,       _______,   _______,
+  _______, WMAX,    WHOR,       WVER,         _______, _______, _______, _______, _______,    LGUI(KC_LPRN), WCLO,    _______,
+  _______, _______, LGUI(KC_W), _______,      _______, _______, _______, _______, CLOCK_IN,   CLOCK_OUT,       WBAL,    _______,
+  _______, _______, _______,    _______,      _______, _______, _______, _______, _______,    _______,       _______, _______,
+  _______, _______, _______,    LGUI(KC_EQL), _______, _______, _______, _______, _______,    _______,       _______,   _______,
   _______, _______, _______,    _______,      _______, _______, _______, _______, WMOVE_LEFT, WMOVE_UP,    WMOVE_DOWN, WMOVE_RIGHT
 )
 
@@ -195,6 +197,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
    switch (keycode) {
+   case CLOCK_IN:
+      if (record->event.pressed) {
+         SEND_STRING(SS_LCTL("c") SS_LCTL("x") SS_LCTL("i"));
+      }
+      return false;
+      break;
+   case CLOCK_OUT:
+      if (record->event.pressed) {
+         SEND_STRING(SS_LCTL("c") SS_LCTL("x") SS_LCTL("o"));
+      }
+      return false;
+      break;
    case MAGIT:
       if (record->event.pressed) {
          SEND_STRING(SS_LCTL("c") SS_LCTL("g"));
