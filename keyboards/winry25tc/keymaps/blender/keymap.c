@@ -18,25 +18,46 @@
 
 #include QMK_KEYBOARD_H
 
-/* #define MATRIX_ROWS 5 */
-/* #define MATRIX_COLS 5 */
+enum preonic_layers {
+  _BASE,
+  _RAISE
+};
+
+enum preonic_keycodes {
+  BASE = SAFE_RANGE,
+  RAISE
+};
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
-    [0] = LAYOUT(
+    [_BASE] = LAYOUT(
         KC_ESC,  KC_TAB,  KC_1,    KC_2,         KC_3,
         _______, _______, KC_G,    KC_S,         KC_R,
         KC_P7,   KC_P5,   KC_X,    KC_Y,         KC_Z,
         KC_P1,   KC_P3,   KC_PMNS, KC_PPLS,      KC_ENT,
-        KC_P0,   KC_PDOT, KC_PSLS, LSFT(KC_GRV), MO(1)
+        KC_P0,   KC_PDOT, KC_PSLS, LSFT(KC_GRV), RAISE
     ),
 
-    [1] = LAYOUT(
-        _______, _______, _______,    _______,    _______,
-        _______, _______, _______,    _______,    _______,
-        _______, _______, LSFT(KC_X), LSFT(KC_Y), LSFT(KC_Z),
-        _______, _______, _______,    _______,    RGB_TOG,
-        _______, _______, _______,    _______,    _______
+    [_RAISE] = LAYOUT(
+        _______,     _______,     _______,    _______,    _______,
+        _______,     _______,     _______,    _______,    _______,
+        LCTL(KC_P7), _______,     LSFT(KC_X), LSFT(KC_Y), LSFT(KC_Z),
+        LCTL(KC_P1), LCTL(KC_P3), RGB_HUI,    RGB_MOD,    RGB_TOG,
+        _______,     _______,     _______,    _______,    _______
     ),
 
+};
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+   switch (keycode) {
+   case RAISE:
+      if (record->event.pressed) {
+         layer_on(_RAISE);
+       } else {
+         layer_off(_RAISE);
+       }
+      return false;
+      break;
+   }
+   return true;
 };
