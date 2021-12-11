@@ -39,11 +39,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 
     [_RAISE] = LAYOUT(
-        _______,     _______,     _______,    _______,    _______,
-        _______,     _______,     _______,    _______,    _______,
-        LCTL(KC_P7), _______,     LSFT(KC_X), LSFT(KC_Y), LSFT(KC_Z),
-        LCTL(KC_P1), LCTL(KC_P3), RGB_HUI,    RGB_MOD,    RGB_TOG,
-        _______,     _______,     _______,    _______,    _______
+        _______,           _______,     _______,    _______,    _______,
+        _______,           _______,     _______,    _______,    _______,
+        LCTL(KC_P7),       _______,     LSFT(KC_X), LSFT(KC_Y), LSFT(KC_Z),
+        LCTL(KC_P1),       LCTL(KC_P3), RGB_HUI,    RGB_MOD,    RGB_TOG,
+        LCTL(LALT(KC_P0)), _______,     _______,    _______,    _______
     ),
 
 };
