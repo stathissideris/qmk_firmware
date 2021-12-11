@@ -24,19 +24,19 @@
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [0] = LAYOUT(
-        KC_NLCK, KC_PSLS, KC_PAST, KC_PMNS, KC_ESC,
-        KC_P7,   KC_P8,   KC_P9,   KC_PPLS, RGB_TOG,
-        KC_P4,   KC_P5,   KC_P6,   KC_PENT, RGB_MOD,
-        KC_P1,   KC_P2,   KC_P3,   KC_UP,   MO(1),
-        KC_P0,   KC_PDOT, KC_LEFT, KC_DOWN, KC_RGHT
+        KC_ESC,  KC_TAB,  KC_1,    KC_2,         KC_3,
+        _______, _______, KC_G,    KC_S,         KC_R,
+        KC_P7,   KC_P5,   KC_X,    KC_Y,         KC_Z,
+        KC_P1,   KC_P3,   KC_PMNS, KC_PPLS,      KC_ENT,
+        KC_P0,   KC_PDOT, KC_PSLS, LSFT(KC_GRV), MO(1)
     ),
 
     [1] = LAYOUT(
-        KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,
-        KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,
-        KC_F11,  KC_F12,  KC_MUTE, KC_VOLD, KC_VOLU,
-        KC_MPLY, KC_MSTP, KC_MPRV, KC_MNXT, _______,
-        KC_RSFT, KC_RALT, KC_RGUI, KC_APP,  KC_RCTL
+        _______, _______, _______,    _______,    _______,
+        _______, _______, _______,    _______,    _______,
+        _______, _______, LSFT(KC_X), LSFT(KC_Y), LSFT(KC_Z),
+        _______, _______, _______,    _______,    RGB_TOG,
+        _______, _______, _______,    _______,    _______
     ),
 
 };
