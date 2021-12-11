@@ -1,0 +1,17 @@
+[2021-10-07 Thu]
+
+I converted [[../winry25tc_QMK_pretty.json]] to a bunch of files in this folder using
+this web converter
+
+https://noroadsleft.github.io/kbf_qmk_converter/
+
+From the site
+
+#+BEGIN_QUOTE
+Convert KBFirmware-format JSON files to usable QMK Data Supports JSON exports
+from kbfirmware.com, qmkeyboard.cn, and mtkeyboard.vip.
+#+END_QUOTE
+
+Source:
+
+https://github.com/noroadsleft/kbf_qmk_converter
