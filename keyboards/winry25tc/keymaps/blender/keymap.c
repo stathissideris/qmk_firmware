@@ -31,19 +31,19 @@ enum preonic_keycodes {
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [_BASE] = LAYOUT(
-        KC_ESC,  KC_TAB,  KC_1,    KC_2,         KC_3,
-        _______, _______, KC_G,    KC_S,         KC_R,
-        KC_P7,   KC_P5,   KC_X,    KC_Y,         KC_Z,
-        KC_P1,   KC_P3,   KC_PMNS, KC_PPLS,      KC_ENT,
-        KC_P0,   KC_PDOT, KC_PSLS, LSFT(KC_GRV), RAISE
+        KC_ESC,     KC_TAB,  KC_1,    KC_2,         KC_3,
+        LSFT(KC_A), KC_F12,  KC_G,    KC_S,         KC_R,
+        KC_P7,      KC_P5,   KC_X,    KC_Y,         KC_Z,
+        KC_P1,      KC_P3,   KC_PMNS, KC_PPLS,      KC_ENT,
+        KC_P0,      KC_PDOT, KC_PSLS, LSFT(KC_GRV), RAISE
     ),
 
     [_RAISE] = LAYOUT(
         _______,           _______,     _______,    _______,    _______,
-        _______,           _______,     _______,    _______,    _______,
+        LSFT(KC_D),        _______,     _______,    _______,    _______,
         LCTL(KC_P7),       _______,     LSFT(KC_X), LSFT(KC_Y), LSFT(KC_Z),
         LCTL(KC_P1),       LCTL(KC_P3), RGB_HUI,    RGB_MOD,    RGB_TOG,
-        LCTL(LALT(KC_P0)), _______,     _______,    _______,    _______
+        LCTL(LALT(KC_P0)), _______,     RGB_VAD,    RGB_VAI,    _______
     ),
 
 };
